@@ -1,4 +1,4 @@
-import Actor from '../models/actor.model';
+import Actor from '../models/actor.model.ts';
 const actors: Actor[] = 
 [{id: 1, firstname: 'Tom', lastname: 'Hanks' }, { id: 2, firstname: 'Julia', lastname: 'Roberts' }];
 
