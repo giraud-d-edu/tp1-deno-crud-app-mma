@@ -1,5 +1,6 @@
 import { Router } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 import * as filmController from "../controllers/film.controller.ts";
+import * as acteurController from "../controllers/acteur.controller.ts";
 
 export const pingRouter = new Router();
 
@@ -14,3 +15,11 @@ filmRouter
   .get("/films/:category", filmController.getFilmsByCategory);
 
 filmRouter;
+
+export const acteurRouter = new Router();
+acteurRouter
+  .get("/acteurs", acteurController.getAllActors)
+  .get("/acteurs/:id", acteurController.getActorById)
+  .get("/acteurs/:filmid", acteurController.getActorsByFilmID);
+
+acteurRouter;
