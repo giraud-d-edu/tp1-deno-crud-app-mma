@@ -8,7 +8,9 @@ export const getFilmById = (ctx: RouterContext<"/films/:id">) => {
   const id = ctx.params.id;
   ctx.response.body = filmService.getFilmById(Number(id));
 };
-export const getFilmsByCategory = (ctx: RouterContext<"/films/:category">) => {
+export const getFilmsByCategory = (
+  ctx: RouterContext<"/films/category/:category">
+) => {
   const category = ctx.params.category;
   ctx.response.body = filmService.getFilmsByCategory(category);
 };

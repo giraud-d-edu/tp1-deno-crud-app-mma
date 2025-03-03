@@ -12,14 +12,10 @@ export const filmRouter = new Router();
 filmRouter
   .get("/films", filmController.getAllFilms)
   .get("/films/:id", filmController.getFilmById)
-  .get("/films/:category", filmController.getFilmsByCategory);
-
-filmRouter;
+  .get("/films/category/:category", filmController.getFilmsByCategory);
 
 export const acteurRouter = new Router();
 acteurRouter
   .get("/acteurs", acteurController.getAllActors)
   .get("/acteurs/:id", acteurController.getActorById)
   .get("/acteurs/:filmid", acteurController.getActorsByFilmID);
-
-acteurRouter;
