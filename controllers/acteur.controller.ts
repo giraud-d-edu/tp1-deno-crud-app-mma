@@ -11,7 +11,7 @@ export const getActorById = (ctx: RouterContext<"/acteurs/:id">) => {
   ctx.response.body = acteurService.getActorById(Number(id));
 };
 
-export const getActorsByFilmID = (ctx: RouterContext<"/acteurs/:filmid">) => {  
+export const getActorsByFilmID = (ctx: RouterContext<"/films/acteurs/:filmid">) => {  
   const filmid = ctx.params.filmid;
   const film = filmService.getFilmById(Number(filmid));
   ctx.response.body = acteurService.getActorsByIds(film.actorIds);

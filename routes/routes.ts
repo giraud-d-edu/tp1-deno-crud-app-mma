@@ -18,4 +18,4 @@ export const acteurRouter = new Router();
 acteurRouter
   .get("/acteurs", acteurController.getAllActors)
   .get("/acteurs/:id", acteurController.getActorById)
-  .get("/acteurs/:filmid", acteurController.getActorsByFilmID);
+  .get("/films/acteurs/:filmid", acteurController.getActorsByFilmID);
