@@ -12,5 +12,10 @@ export const getFilmsByCategory = (category: string): Film[] =>
   filmRepository.getFilmsByCategory(category);
 export const getFilmActors = (id: number): string[] => {
   const film = filmRepository.getFilmById(id);
-  return film.actorIds.map((actorId) => `Actor ${actorId}`);
+  return film.actors.map((actor) => `Actor ${actor}`);
 };
+export const addFilm = (film: Film): boolean => filmRepository.addFilm(film);
+export const updateFilm = (id: number, film: Film): boolean =>
+  filmRepository.updateFilm(id, film);
+export const deleteFilm = (id: number): boolean =>
+  filmRepository.deleteFilm(id);
