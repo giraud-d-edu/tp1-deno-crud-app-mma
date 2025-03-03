@@ -1,4 +1,5 @@
 export default interface Film {
-    id: number;
-    title: string;
+  id: number;
+  category: string[];
+  title: string;
 }
