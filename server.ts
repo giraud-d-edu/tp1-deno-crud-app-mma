@@ -1,9 +1,10 @@
 import { Router, Application } from "https://deno.land/x/oak@v17.1.4/mod.ts";
+import authenticatedRoute from "./middleware.ts";
 const app = new Application();
 const router = new Router();
 
-router.get("/", (context) => {
-  context.response.body = "Hello World!";
+router.get("/", authenticatedRoute, (ctx) => {
+    ctx.response.body = "Hello World!";
 });
 
 app.use(router.routes());
