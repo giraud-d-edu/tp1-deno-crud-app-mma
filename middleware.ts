@@ -1,4 +1,5 @@
 import { Context, Next } from "https://deno.land/x/oak@v17.1.4/mod.ts";
+import "jsr:@std/dotenv/load";
 
 export const authenticatedRoute = async (ctx: Context, next: Next) => {
   const isAuthenticated =
@@ -13,10 +14,11 @@ export const authenticatedRoute = async (ctx: Context, next: Next) => {
 };
 
 export const adminRoute = async (ctx: Context, next: Next) => {
+  const adminCredentials = Deno.env.get("ADMIN_CREDENTIALS");
   const isAuthenticated =
     ctx.request.headers.get("Authorization")?.split(" ")[0] === "Basic" &&
     ctx.request.headers.get("Authorization")?.split(" ")[1] ===
-      "YWRtaW46dGVzdA=="; // admin:test (base64 encoded)
+      adminCredentials;
   if (isAuthenticated) {
     await next();
     return;
