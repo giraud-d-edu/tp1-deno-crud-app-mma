@@ -1,6 +1,6 @@
 import { z } from "https://deno.land/x/zod@v3.24.2/mod.ts";
 
-export const BookDto = z.object({
+export const FilmDto = z.object({
     title: z.string().min(1, "Title is required"),
     category: z.array(z.string()).nonempty("At least one category is required"),
     actors: z.array(
@@ -11,4 +11,4 @@ export const BookDto = z.object({
     ).nonempty("At least one actor is required"),
   });
 
-export type BookDtoType = z.infer<typeof BookDto>;
+export type FilmDtoType = z.infer<typeof FilmDto>;
