@@ -11,6 +11,18 @@
 			"item": [
 				{
 					"name": "Récupérer tous les films",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -24,7 +36,8 @@
 							"path": [
 								"films"
 							]
-						}
+						},
+						"description": "### GET /films\n\nThis endpoint retrieves a list of films.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n[\n  {\n    \"title\": \"string\",\n    \"category\": [\"string\"],\n    \"actors\": [\n      {\n        \"id\": \"integer\",\n        \"role\": \"string\"\n      }\n    ],\n    \"id\": \"integer\"\n  }\n]\n\n ```"
 					},
 					"response": []
 				},
@@ -314,12 +327,12 @@
 					"response": []
 				},
 				{
-					"name": "Récupérer note par User ID",
+					"name": "Récupérer note par film ID",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/note/{{userID}}",
+							"raw": "http://localhost:8000/note/film/{{filmID}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -327,19 +340,20 @@
 							"port": "8000",
 							"path": [
 								"note",
-								"{{userID}}"
+								"film",
+								"{{filmID}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Récupérer note par film ID",
+					"name": "Récupérer note par User",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/note/{{filmID}}",
+							"raw": "http://localhost:8000/note/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -347,7 +361,7 @@
 							"port": "8000",
 							"path": [
 								"note",
-								"{{filmID}}"
+								"user"
 							]
 						}
 					},
@@ -358,6 +372,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_film\":1,\r\n    \"note\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8000/note",
 							"protocol": "http",
@@ -377,6 +400,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_film\":1,\r\n    \"note\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8000/note/{{noteID}}",
 							"protocol": "http",
