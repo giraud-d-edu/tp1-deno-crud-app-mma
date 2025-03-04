@@ -1,5 +1,5 @@
 import { WithId } from "npm:mongodb@5.6.0";
-import { ObjectId } from "../../dep.ts";
+import { ObjectId } from "../../deps.ts";
 import Actor from "../../models/actor.model.ts";
 
 export interface ActeurDBO {

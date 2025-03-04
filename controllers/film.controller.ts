@@ -1,6 +1,6 @@
-import { RouterContext } from "https://deno.land/x/oak@v17.1.4/router.ts";
 import * as filmService from "../services/film.service.ts";
 import { statusCodeHandler } from "../errors/StatusCodeHandler.ts";
+import { RouterContext } from "../deps.ts";
 
 export const getAllFilms = async (ctx: RouterContext<"/films">) => {
   try {

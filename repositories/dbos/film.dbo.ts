@@ -1,4 +1,4 @@
-import { ObjectId, WithId } from "../../dep.ts";
+import { ObjectId, WithId } from "../../deps.ts";
 import Film from "../../models/film.model.ts";
 
 export interface FilmDBO {

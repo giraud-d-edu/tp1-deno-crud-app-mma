@@ -1,7 +1,7 @@
+import { RouterContext } from "../deps.ts";
 import { statusCodeHandler } from "../errors/StatusCodeHandler.ts";
 import * as acteurService from "../services/acteur.service.ts";
 import * as filmService from "../services/film.service.ts";
-import { RouterContext } from "https://deno.land/x/oak@v17.1.4/router.ts";
 
 export const getAllActors = async (ctx: RouterContext<"/acteurs">) => {
   try {

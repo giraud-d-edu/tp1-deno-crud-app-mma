@@ -1,8 +1,8 @@
-import { Router } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 import * as filmController from "../controllers/film.controller.ts";
 import * as acteurController from "../controllers/acteur.controller.ts";
 import * as noteController from "../controllers/note.controller.ts";
 import { adminRoute, authenticatedRoute } from "../middleware.ts";
+import { Router } from "../deps.ts";
 
 export const pingRouter = new Router();
 
@@ -32,7 +32,7 @@ export const noteRouter = new Router();
 noteRouter
   .get("/note/:id", noteController.getNoteById)
   .get("/note/film/:id", noteController.getNotesByFilmId)
-  .get("/note/user", authenticatedRoute, noteController.getNotesByUserId)
+  .get("/user/note", authenticatedRoute, noteController.getNotesByUserId)
   .post("/note", authenticatedRoute, noteController.addNote)
   .put("/note/:id", authenticatedRoute, noteController.updateNote)
   .delete("/note/:id", authenticatedRoute, noteController.deleteNote);

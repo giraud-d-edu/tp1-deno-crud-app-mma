@@ -2,7 +2,7 @@ import NotFoundError from "../errors/NotFound.error.ts";
 import Actor from "../models/actor.model.ts";
 import { actorCollection } from "../db/mongo.ts";
 import { ActeurDBOToModel, ActeurModelToDBO } from "./dbos/acteur.dbo.ts";
-import { ObjectId } from "../dep.ts";
+import { ObjectId } from "../deps.ts";
 
 export async function getAllActors(): Promise<Actor[]> {
   const allActors = await actorCollection.find().toArray();

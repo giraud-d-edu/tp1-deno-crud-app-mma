@@ -1,5 +1,5 @@
 import { filmCollection } from "../db/mongo.ts";
-import { ObjectId } from "../dep.ts";
+import { ObjectId } from "../deps.ts";
 import NotFoundError from "../errors/NotFound.error.ts";
 import Film from "../models/film.model.ts";
 import { FilmDBOtoModel, FilmModeltoDBO } from "./dbos/film.dbo.ts";

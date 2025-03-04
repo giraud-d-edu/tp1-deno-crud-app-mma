@@ -1,5 +1,5 @@
-import { Context, Next } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 import "jsr:@std/dotenv/load";
+import { Context, Next } from "./deps.ts";
 
 export const authenticatedRoute = async (ctx: Context, next: Next) => {
   const isAuthenticated =
