@@ -1,4 +1,3 @@
-import { ActorDto, ActorDtoType } from "../dtos/actor.dto.ts";
 import { statusCodeHandler } from "../errors/StatusCodeHandler.ts";
 import * as acteurService from "../services/acteur.service.ts";
 import * as filmService from "../services/film.service.ts";
@@ -40,7 +39,6 @@ export const getActorsByFilmID = (
 export const addActor = async (ctx: RouterContext<"/acteurs">) => {
   try {
     const actorParams = await ctx.request.body.json();
-    const checkedActor: ActorDtoType = ActorDto.parse(actorParams);
     acteurService.addActor(actorParams);
     ctx.response.body = "Acteur ajouté";
   } catch (error) {
