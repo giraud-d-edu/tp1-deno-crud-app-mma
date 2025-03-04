@@ -56,17 +56,24 @@ export const getNotesByUserName = (username: string): Note[] => {
   return notes.filter((note) => note.username === username);
 };
 
-export const addNote = (note: Note): boolean => {
+export const addNote = (note: Note, username: string): boolean => {
   note.id = notes.reduce((max, note) => (note.id > max ? note.id : max), 0) + 1;
+  note.username = username;
   notes.push(note);
   return true;
 };
 
-export const updateNote = (id: number, note: Note): boolean => {
+export const updateNote = (
+  id: number,
+  note: Note,
+  username: string
+): boolean => {
   const index = notes.findIndex((note) => note.id === id);
   if (index === -1) {
     throw new NotFoundError(`Film with id ${id} not found`);
   }
+  note.id = id;
+  note.username = username;
   notes[index] = note;
   return true;
 };

@@ -1,7 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak@v17.1.4/router.ts";
 import * as filmService from "../services/film.service.ts";
 import { statusCodeHandler } from "../errors/StatusCodeHandler.ts";
-import { FilmDto, FilmDtoType } from "../dtos/film.dto.ts";
 
 export const getAllFilms = (ctx: RouterContext<"/films">) => {
   try {
@@ -35,8 +34,8 @@ export const getFilmsByCategory = (
 export const addFilm = async (ctx: RouterContext<"/films">) => {
   try {
     const film = await ctx.request.body.json();
-    const checkedFilm: FilmDtoType = FilmDto.parse(film);
-    filmService.addFilm(checkedFilm);
+    //const checkedFilm: FilmDtoType = FilmDto.parse(film);
+    filmService.addFilm(film);
     ctx.response.body = "Film ajouté";
   } catch (error) {
     ctx.response.status = statusCodeHandler(error);
@@ -48,8 +47,8 @@ export const updateFilm = async (ctx: RouterContext<"/films/:id">) => {
   try {
     const id = ctx.params.id;
     const film = await ctx.request.body.json();
-    const checkedFilm: FilmDtoType = FilmDto.parse(film);
-    filmService.updateFilm(Number(id), checkedFilm);
+    //const checkedFilm: FilmDtoType = FilmDto.parse(film);
+    filmService.updateFilm(Number(id), film);
     ctx.response.body = `Film ${id} mis à jour`;
   } catch (error) {
     ctx.response.status = statusCodeHandler(error);

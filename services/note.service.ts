@@ -23,18 +23,18 @@ export const getNotesByUserId = (username: string) => {
   return noteRepository.getNotesByUserName(username);
 };
 
-export const addNote = (note: Note) => {
+export const addNote = (note: Note, username: string) => {
   if (!note) {
     throw new BadRequestError("Invalid note");
   }
-  return noteRepository.addNote(note);
+  return noteRepository.addNote(note, username);
 };
 
-export const updateNote = (id: number, note: Note) => {
+export const updateNote = (id: number, note: Note, username: string) => {
   if (!id || !note) {
     throw new BadRequestError("Invalid note id or note");
   }
-  return noteRepository.updateNote(id, note);
+  return noteRepository.updateNote(id, note, username);
 };
 
 export const deleteNote = (id: number) => {
