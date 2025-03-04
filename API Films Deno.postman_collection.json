@@ -1,28 +1,424 @@
 {
 	"info": {
-		"_postman_id": "33dbbfd5-86d4-4bd2-b321-90b0fbcc0bdc",
+		"_postman_id": "a49cd432-1e23-4c67-89c2-c31d5edf07b2",
 		"name": "API Films Deno",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25386292"
+		"_exporter_id": "40330956"
 	},
 	"item": [
+		{
+			"name": "Films",
+			"item": [
+				{
+					"name": "Récupérer tous les films",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/films",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"films"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer les films par ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/films/{{filmID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"films",
+								"{{filmID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer les films par catégorie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/films/category/{{categorie}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"films",
+								"category",
+								"{{categorie}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter un film",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"AAA\",\r\n    \"category\": [\"BBB\", \"CCC\"],\r\n    \"actors\": [\r\n      { \"id\": 8, \"role\": \"X\" },\r\n      { \"id\": 10, \"role\": \"Y\" }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/films",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"films"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un film",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"AAA\",\r\n    \"category\": [\"BBB\", \"CCC\"],\r\n    \"actors\": [\r\n      { \"id\": 8, \"role\": \"X\" },\r\n      { \"id\": 10, \"role\": \"Y\" }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/films/{{filmID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"films",
+								"{{filmID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un film",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/films/{{filmID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"films",
+								"{{filmID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Acteur",
+			"item": [
+				{
+					"name": "Récupérer tous les acteurs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/acteurs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"acteurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer un acteur par ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/acteurs/{{acteurID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"acteurs",
+								"{{acteurID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer tous les acteurs par film ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/acteurs/film/{{filmID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"acteurs",
+								"film",
+								"{{filmID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter un acteur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \"firstname\": \"XX\", \"lastname\": \"YYY\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/acteurs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"acteurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un acteur",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \"firstname\": \"XX\", \"lastname\": \"YYY\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/acteurs/{{acteurID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"acteurs",
+								"{{acteurID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un acteur",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/acteurs/{{acteurID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"acteurs",
+								"{{acteurID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Note",
+			"item": [
+				{
+					"name": "Récupérer note par ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/note/{{noteID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"note",
+								"{{noteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer note par User ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/note/{{userID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"note",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer note par film ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/note/{{filmID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"note",
+								"{{filmID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Créer une note",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/note",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mettre à jour une note",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/note/{{noteID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"note",
+								"{{noteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer une note",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/note/{{noteID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"note",
+								"{{noteID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Ping",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "MMA",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "test",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],
@@ -39,243 +435,43 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "test",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		},
 		{
-			"name": "Récupérer tous les films",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/films",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"films"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Récupérer les films par catégorie",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/films/{{categorie}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"films",
-						"{{categorie}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Récupérer les films par ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/films/{{filmID}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"films",
-						"{{filmID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Récupérer tous les acteurs",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/acteurs",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"acteurs"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Récupérer tous les acteurs par film ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/acteurs/{{filmID}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"acteurs",
-						"{{filmID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Récupérer un acteur par ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/acteurs/{{acteurID}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"acteurs",
-						"{{acteurID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Récupérer note par ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/note/{{noteID}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"note",
-						"{{noteID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Récupérer note par User ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/note/{{userID}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"note",
-						"{{userID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Récupérer note par film ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/note/{{filmID}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"note",
-						"{{filmID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Créer une note",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/note",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"note"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Mettre à jour une note",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/note/{{noteID}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"note",
-						"{{noteID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Supprimer une note",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/note/{{noteID}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"note",
-						"{{noteID}}"
-					]
-				}
-			},
-			"response": []
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
