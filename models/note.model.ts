@@ -1,6 +1,6 @@
 export default interface Note {
-  id: number;
-  id_film: number;
+  id: string;
+  id_film: string;
   username: string;
   note: number;
 }

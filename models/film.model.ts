@@ -1,5 +1,5 @@
 export default interface Film {
-  id: number;
+  id: string;
   category: string[];
   title: string;
   actors: { id: number; role: string }[];
