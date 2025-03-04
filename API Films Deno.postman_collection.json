@@ -353,15 +353,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/note/user",
+							"raw": "http://localhost:8000/user/note",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
-								"note",
-								"user"
+								"user",
+								"note"
 							]
 						}
 					},
@@ -374,7 +374,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_film\":1,\r\n    \"note\":5\r\n}",
+							"raw": "{\r\n    \"id_film\":\"67c6c524c7055ab6ef4f8905\",\r\n    \"note\":5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
