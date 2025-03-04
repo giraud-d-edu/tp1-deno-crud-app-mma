@@ -1,63 +1,65 @@
 import NotFoundError from "../errors/NotFound.error.ts";
 import Actor from "../models/actor.model.ts";
-const actors: Actor[] = [
-  { id: 1, firstname: "Tom", lastname: "Hanks" },
-  { id: 2, firstname: "Julia", lastname: "Roberts" },
-  { id: 3, firstname: "Leonardo", lastname: "DiCaprio" },
-  { id: 4, firstname: "Morgan", lastname: "Freeman" },
-  { id: 5, firstname: "Scarlett", lastname: "Johansson" },
-  { id: 6, firstname: "Brad", lastname: "Pitt" },
-  { id: 7, firstname: "Angelina", lastname: "Jolie" },
-  { id: 8, firstname: "Johnny", lastname: "Depp" },
-  { id: 9, firstname: "Meryl", lastname: "Streep" },
-  { id: 10, firstname: "Robert", lastname: "Downey Jr." },
-];
+import { actorCollection } from "../db/mongo.ts";
+import { ActeurDBOToModel, ActeurModelToDBO } from "./dbos/acteur.dbo.ts";
+import { ObjectId } from "../dep.ts";
 
-export const getAllActors: () => Actor[] = () => {
-  return actors;
-};
-export const getActorById: (id: number) => Actor = (id) => {
-  const actor = actors.find((actor) => actor.id === id);
-  if (!actor) {
+export async function getAllActors(): Promise<Actor[]> {
+  const allActors = await actorCollection.find().toArray();
+  return allActors.map(ActeurDBOToModel);
+}
+
+export const getActorById: (id: string) => Promise<Actor> = async (id) => {
+  const actorDBO = await actorCollection.findOne({ _id: new ObjectId(id) });
+  if (!actorDBO) {
     throw new NotFoundError(`Actor with id ${id} not found`);
   }
-  return actor;
+  return ActeurDBOToModel(actorDBO);
 };
 
-export const getActorsByIds: (ids: number[]) => Actor[] = (ids) => {
-  return ids
-    .map((id) => actors.find((actor) => actor.id === id))
-    .filter((actor) => actor !== undefined) as Actor[];
-};
-
-export const addActor: (actor: Actor) => boolean = (actor): boolean => {
-  const maxId = actors.reduce(
-    (max, actor) => (actor.id > max ? actor.id : max),
-    0
-  );
-  actor.id = maxId + 1;
-  actors.push(actor);
-  return true;
-};
-
-export const updateActor: (id: number, actor: Actor) => boolean = (
-  id,
-  actor
+export const getActorsByIds: (ids: string[]) => Promise<Actor[]> = async (
+  ids
 ) => {
-  actor.id = id;
-  const index = actors.findIndex((actor) => actor.id === id);
-  if (index === -1) {
-    throw new NotFoundError(`Actor with id ${id} not found`);
-  }
-  actors[index] = actor;
-  return true;
+  const actorsDBO = await Promise.all(
+    ids.map(async (id) => {
+      const actorDBO = await actorCollection.findOne({ _id: new ObjectId(id) });
+      if (!actorDBO) {
+        throw new NotFoundError(`Actor with id ${id} not found`);
+      }
+      return actorDBO;
+    })
+  );
+  return actorsDBO.map(ActeurDBOToModel);
 };
 
-export const deleteActor: (id: number) => boolean = (id) => {
-  const index = actors.findIndex((actor) => actor.id === id);
-  if (index === -1) {
+export const addActor: (actor: Actor) => Promise<boolean> = async (
+  actor
+): Promise<boolean> => {
+  const result = await actorCollection.insertOne(ActeurModelToDBO(actor));
+  if (!result.acknowledged) {
+    throw new Error("Actor not added");
+  }
+  return result.acknowledged;
+};
+
+export const updateActor: (
+  id: string,
+  actor: Actor
+) => Promise<boolean> = async (id, actor) => {
+  const result = await actorCollection.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: ActeurModelToDBO(actor) }
+  );
+  if (!result.modifiedCount) {
     throw new NotFoundError(`Actor with id ${id} not found`);
   }
-  actors.splice(index, 1);
-  return true;
+  return result.modifiedCount > 0;
+};
+
+export const deleteActor: (id: string) => Promise<boolean> = async (id) => {
+  const result = await actorCollection.deleteOne({ _id: new ObjectId(id) });
+  if (!result.deletedCount) {
+    throw new NotFoundError(`Actor with id ${id} not found`);
+  }
+  return result.deletedCount > 0;
 };

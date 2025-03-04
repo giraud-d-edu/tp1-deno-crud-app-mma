@@ -1,77 +1,51 @@
+import { filmCollection } from "../db/mongo.ts";
+import { ObjectId } from "../dep.ts";
 import NotFoundError from "../errors/NotFound.error.ts";
 import Film from "../models/film.model.ts";
+import { FilmDBOtoModel, FilmModeltoDBO } from "./dbos/film.dbo.ts";
 
-const films: Film[] = [
-  {
-    id: 1,
-    title: "The Shawshank Redemption",
-    category: ["Drama"],
-    actors: [
-      { id: 1, role: "Andy Dufresne" },
-      { id: 4, role: "Ellis Boyd 'Red' Redding" },
-    ],
-  },
-  {
-    id: 2,
-    title: "The Godfather",
-    category: ["Crime", "Drama"],
-    actors: [
-      { id: 8, role: "Don Vito Corleone" },
-      { id: 10, role: "Michael Corleone" },
-    ],
-  },
-  {
-    id: 3,
-    title: "The Dark Knight",
-    category: ["Action", "Crime", "Drama"],
-    actors: [
-      { id: 10, role: "Bruce Wayne / Batman" },
-      { id: 3, role: "Joker" },
-    ],
-  },
-  {
-    id: 4,
-    title: "12 Angry",
-    category: ["Drama"],
-    actors: [
-      { id: 1, role: "Juror 8" },
-      { id: 4, role: "Juror 9" },
-    ],
-  },
-];
+export const getAllFilms = async (): Promise<Film[]> => {
+  const films = await filmCollection.find().toArray();
+  return films.map(FilmDBOtoModel);
+};
+export const getFilmById = async (id: string): Promise<Film> => {
+  const film = await filmCollection.findOne({ _id: new ObjectId(id) });
 
-export const getAllFilms = (): Film[] => films;
-export const getFilmById = (id: number): Film => {
-  const film = films.find((film) => film.id === id);
   if (!film) {
     throw new NotFoundError(`Film with id ${id} not found`);
   }
-  return film;
+  return FilmDBOtoModel(film);
 };
-export const getFilmsByCategory = (category: string): Film[] =>
-  films.filter((film) => film.category.includes(category));
-
-export const addFilm = (film: Film): boolean => {
-  film.id = films.reduce((max, film) => (film.id > max ? film.id : max), 0) + 1;
-  films.push(film);
-  return true;
+export const getFilmsByCategory = async (category: string): Promise<Film[]> => {
+  const films = await filmCollection
+    .find({ category: { $in: [category] } })
+    .toArray();
+  return films.map(FilmDBOtoModel);
 };
 
-export const updateFilm = (id: number, film: Film): boolean => {
-  const index = films.findIndex((film) => film.id === id);
-  if (index === -1) {
+export const addFilm = async (film: Film): Promise<boolean> => {
+  const result = await filmCollection.insertOne(FilmModeltoDBO(film));
+  if (!result.acknowledged) {
+    throw new Error("Film not added");
+  }
+  return result.acknowledged;
+};
+
+export const updateFilm = async (id: string, film: Film): Promise<boolean> => {
+  const result = await filmCollection.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: FilmModeltoDBO(film) }
+  );
+  if (!result.modifiedCount) {
     throw new NotFoundError(`Film with id ${id} not found`);
   }
-  film.id = id;
-  films[index] = film;
-  return true;
+  return result.modifiedCount > 0;
 };
 
-export const deleteFilm = (id: number): boolean => {
-  const index = films.findIndex((film) => film.id === id);
-  if (index === -1) {
+export const deleteFilm = async (id: string): Promise<boolean> => {
+  const result = await filmCollection.deleteOne({ _id: new ObjectId(id) });
+  if (!result.deletedCount) {
     throw new NotFoundError(`Film with id ${id} not found`);
   }
-  films.splice(index, 1);
-  return true;
+  return result.deletedCount > 0;
 };

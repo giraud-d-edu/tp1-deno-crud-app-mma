@@ -3,31 +3,31 @@ import * as acteurService from "../services/acteur.service.ts";
 import * as filmService from "../services/film.service.ts";
 import { RouterContext } from "https://deno.land/x/oak@v17.1.4/router.ts";
 
-export const getAllActors = (ctx: RouterContext<"/acteurs">) => {
+export const getAllActors = async (ctx: RouterContext<"/acteurs">) => {
   try {
-    ctx.response.body = acteurService.getAllActors();
+    ctx.response.body = await acteurService.getAllActors();
   } catch (error) {
     ctx.response.status = statusCodeHandler(error);
     ctx.response.body = (error as Error).message;
   }
 };
-export const getActorById = (ctx: RouterContext<"/acteurs/:id">) => {
+export const getActorById = async (ctx: RouterContext<"/acteurs/:id">) => {
   try {
     const id = ctx.params.id;
-    ctx.response.body = acteurService.getActorById(Number(id));
+    ctx.response.body = await acteurService.getActorById(id);
   } catch (error) {
     ctx.response.status = statusCodeHandler(error);
     ctx.response.body = (error as Error).message;
   }
 };
 
-export const getActorsByFilmID = (
+export const getActorsByFilmID = async (
   ctx: RouterContext<"/acteurs/film/:filmid">
 ) => {
   try {
     const filmid = ctx.params.filmid;
-    const film = filmService.getFilmById(Number(filmid));
-    ctx.response.body = acteurService.getActorsByIds(
+    const film = await filmService.getFilmById(filmid);
+    ctx.response.body = await acteurService.getActorsByIds(
       film.actors.map((actor) => actor.id)
     );
   } catch (error) {
@@ -39,7 +39,7 @@ export const getActorsByFilmID = (
 export const addActor = async (ctx: RouterContext<"/acteurs">) => {
   try {
     const actorParams = await ctx.request.body.json();
-    acteurService.addActor(actorParams);
+    await acteurService.addActor(actorParams);
     ctx.response.body = "Acteur ajouté";
   } catch (error) {
     ctx.response.status = statusCodeHandler(error);
@@ -51,7 +51,7 @@ export const updateActor = async (ctx: RouterContext<"/acteurs/:id">) => {
   try {
     const id = ctx.params.id;
     const actorParams = await ctx.request.body.json();
-    acteurService.updateActor(Number(id), actorParams);
+    await acteurService.updateActor(id, actorParams);
     ctx.response.body = `Acteur ${id} mis à jour`;
   } catch (error) {
     ctx.response.status = statusCodeHandler(error);
@@ -59,10 +59,10 @@ export const updateActor = async (ctx: RouterContext<"/acteurs/:id">) => {
   }
 };
 
-export const deleteActor = (ctx: RouterContext<"/acteurs/:id">) => {
+export const deleteActor = async (ctx: RouterContext<"/acteurs/:id">) => {
   try {
     const id = ctx.params.id;
-    acteurService.deleteActor(Number(id));
+    await acteurService.deleteActor(id);
     ctx.response.body = `Acteur ${id} supprimé`;
   } catch (error) {
     ctx.response.status = statusCodeHandler(error);
