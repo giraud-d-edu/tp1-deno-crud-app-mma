@@ -1,5 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 import * as noteService from "../services/note.service.ts";
+import { NoteDto, NoteDtoType } from "../dtos/note.dto.ts";
 
 export const getNoteById = (ctx: RouterContext<"/notes/:id">) => {
     const id = ctx.params.id;
@@ -18,12 +19,14 @@ export const getNotesByUserId = (ctx: RouterContext<"/notes/user/:id">) => {
 
 export const addNote = async (ctx: RouterContext) => {
     const note = await ctx.request.body();
+    const checkedNote: NoteDtoType = NoteDto.parse(note);
     ctx.response.body = noteService.addNote(note);
 };
 
 export const updateNote = async (ctx: RouterContext<"/notes/:id">) => {
     const id = ctx.params.id;
     const note = await ctx.request.body();
+    const checkedNote: NoteDtoType = NoteDto.parse(note);
     ctx.response.body = noteService.updateNote(Number(id), note);
 };
 
