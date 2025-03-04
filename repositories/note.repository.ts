@@ -1,4 +1,3 @@
-import { trace } from "node:console";
 import { noteCollection } from "../db/mongo.ts";
 import { ObjectId } from "../deps.ts";
 import NotFoundError from "../errors/NotFound.error.ts";
@@ -20,7 +19,6 @@ export const getNotesByFilmId = async (id_film: string): Promise<Note[]> => {
 
 export const getNotesByUserName = async (username: string): Promise<Note[]> => {
   const notes = await noteCollection.find({ user: username }).toArray();
-  trace(notes);
   return notes.map(NoteDBOtoModel);
 };
 
