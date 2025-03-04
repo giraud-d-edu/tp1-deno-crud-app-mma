@@ -1,5 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 import * as noteService from "../services/note.service.ts";
+import { NoteDto, NoteDtoType } from "../dtos/note.dto.ts";
 import { statusCodeHandler } from "../errors/StatusCodeHandler.ts";
 
 export const getNoteById = (ctx: RouterContext<"/note/:id">) => {
@@ -36,6 +37,7 @@ export const addNote = async (ctx: RouterContext<"/note">) => {
   try {
     const username = ctx.request.headers.get("Authorization")?.split(" ")[1];
     const note = await ctx.request.body.json();
+    const checkedNote: NoteDtoType = NoteDto.parse(note);
     ctx.response.body = noteService.addNote(note);
   } catch (error) {
     ctx.response.status = statusCodeHandler(error);
@@ -47,6 +49,7 @@ export const updateNote = async (ctx: RouterContext<"/note/:id">) => {
   try {
     const id = ctx.params.id;
     const note = await ctx.request.body.json();
+    const checkedNote: NoteDtoType = NoteDto.parse(note);
     ctx.response.body = noteService.updateNote(Number(id), note);
   } catch (error) {
     ctx.response.status = statusCodeHandler(error);
